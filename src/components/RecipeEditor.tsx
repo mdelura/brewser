@@ -61,7 +61,7 @@ const RecipeEditor: React.SFC<RecipeEditorProps> = ({ recipe, onRecipeChanged })
             {/* Coffee */}
             <Typography variant="button">Coffee</Typography>
             {lockerButton(RecipeItem.Coffee)}
-            <Typography>{recipe.coffee.toFixed(1)}g</Typography>
+            <Typography>{recipe.coffee.toFixed(1)} g</Typography>
             <Slider
                 disabled={locks.coffee}
                 value={recipe.coffee}
@@ -74,7 +74,7 @@ const RecipeEditor: React.SFC<RecipeEditorProps> = ({ recipe, onRecipeChanged })
             {/* Water */}
             <Typography variant="button">Water</Typography>
             {lockerButton(RecipeItem.Water)}
-            <Typography>{recipe.water.toFixed()}g</Typography>
+            <Typography>{recipe.water.toFixed()} g</Typography>
             <Slider
                 value={recipe.water}
                 disabled={locks.water}
