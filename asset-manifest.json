@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/brewser/static/js/main.e562bdfa.chunk.js",
+    "main.js.map": "/brewser/static/js/main.e562bdfa.chunk.js.map",
+    "runtime-main.js": "/brewser/static/js/runtime-main.f2dbfd8a.js",
+    "runtime-main.js.map": "/brewser/static/js/runtime-main.f2dbfd8a.js.map",
+    "static/js/2.51c0df54.chunk.js": "/brewser/static/js/2.51c0df54.chunk.js",
+    "static/js/2.51c0df54.chunk.js.map": "/brewser/static/js/2.51c0df54.chunk.js.map",
+    "index.html": "/brewser/index.html",
+    "precache-manifest.01ecb4d5adeb31e169877dbf60d73b8a.js": "/brewser/precache-manifest.01ecb4d5adeb31e169877dbf60d73b8a.js",
+    "service-worker.js": "/brewser/service-worker.js",
+    "static/js/2.51c0df54.chunk.js.LICENSE.txt": "/brewser/static/js/2.51c0df54.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f2dbfd8a.js",
+    "static/js/2.51c0df54.chunk.js",
+    "static/js/main.e562bdfa.chunk.js"
+  ]
+}
