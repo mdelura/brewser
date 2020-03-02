@@ -59,8 +59,8 @@ const RecipeEditor: React.SFC<RecipeEditorProps> = ({ recipe, onRecipeChanged })
     return (
         <React.Fragment>
             {/* Coffee */}
-            <Typography variant="button">Coffee</Typography>
             {lockerButton(RecipeItem.Coffee)}
+            <Typography variant="button">Coffee</Typography>
             <Slider
                 disabled={locks.coffee}
                 value={recipe.coffee}
@@ -70,8 +70,8 @@ const RecipeEditor: React.SFC<RecipeEditorProps> = ({ recipe, onRecipeChanged })
                 marks={[{ value: recipe.coffee, label: recipe.coffee.toFixed(1) + ' g' }]}
             />
             {/* Water */}
-            <Typography variant="button">Water</Typography>
             {lockerButton(RecipeItem.Water)}
+            <Typography variant="button">Water</Typography>
             <Slider
                 value={recipe.water}
                 disabled={locks.water}
@@ -82,8 +82,8 @@ const RecipeEditor: React.SFC<RecipeEditorProps> = ({ recipe, onRecipeChanged })
                 marks={[{ value: recipe.water, label: recipe.water.toFixed() + ' ml' }]}
             />
             {/* Ratio */}
-            <Typography variant="button">Ratio</Typography>
             {lockerButton(RecipeItem.Ratio)}
+            <Typography variant="button">Ratio</Typography>
             <Slider
                 value={recipe.ratio}
                 disabled={locks.ratio}
