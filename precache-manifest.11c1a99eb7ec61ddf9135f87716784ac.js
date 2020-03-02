@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "41637f6171c078fc60394ed03f871846",
+    "revision": "bd5d05cf819f56ba1779c355cfbecaa8",
     "url": "/brewser/index.html"
   },
   {
