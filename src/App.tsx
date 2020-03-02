@@ -14,7 +14,7 @@ const App = () => {
 
     return (
         <Container maxWidth="sm">
-            <Box>
+            <Box marginRight={2}>
                 <Typography variant="h4">Brewser</Typography>
                 <RecipeEditor recipe={recipe} onRecipeChanged={setRecipe} />
                 <Brewer recipe={recipe} />
