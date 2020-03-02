@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Recipe } from '../models/Recipe';
-import { Typography, Slider, Mark } from '@material-ui/core';
+import { Typography, Slider, Mark, Grid } from '@material-ui/core';
 // import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
@@ -64,7 +64,6 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
 
             <Slider
                 value={steps}
-                valueLabelFormat={value => (value * recipe.water).toFixed()}
                 onChange={(_, values) => setSteps(values as number[])}
                 aria-labelledby="range-slider"
                 max={1}
@@ -72,12 +71,18 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
                 marks={marks}
             />
             {/* TODO: Center button */}
-            <Button variant="contained" color="primary" onClick={() => (!timer ? startTimer() : killTimer())}>
-                {!timer ? 'Start' : 'Pause'}
-            </Button>
-            <Typography variant="h2">{moment.unix(time).format('mm:ss')}</Typography>
-            <Typography variant="h4">Step {stepIndex + 1}</Typography>
-            <Typography variant="h4">Pour {currentPortion} ml of water</Typography>
+            <Grid container>
+                <Grid item xs={6}>
+                    <Typography variant="h4">{moment.unix(time).format('mm:ss')}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                    <Button variant="contained" color="primary" onClick={() => (!timer ? startTimer() : killTimer())}>
+                        {!timer ? 'Start' : 'Pause'}
+                    </Button>
+                </Grid>
+            </Grid>
+            <Typography variant="h5">Step {stepIndex + 1}</Typography>
+            <Typography variant="h5">Pour {currentPortion} ml of water</Typography>
             <Typography variant="h4">Total {marks[stepIndex].label} of water</Typography>
         </React.Fragment>
     );

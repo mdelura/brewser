@@ -61,20 +61,17 @@ const RecipeEditor: React.SFC<RecipeEditorProps> = ({ recipe, onRecipeChanged })
             {/* Coffee */}
             <Typography variant="button">Coffee</Typography>
             {lockerButton(RecipeItem.Coffee)}
-            <Typography>{recipe.coffee.toFixed(1)} g</Typography>
             <Slider
                 disabled={locks.coffee}
                 value={recipe.coffee}
                 min={1}
                 max={100}
                 onChange={(_, value) => updateRecipe(RecipeItem.Coffee, value as number)}
-                valueLabelDisplay="auto"
-                valueLabelFormat={value => value.toFixed()}
+                marks={[{ value: recipe.coffee, label: recipe.coffee.toFixed(1) + ' g' }]}
             />
             {/* Water */}
             <Typography variant="button">Water</Typography>
             {lockerButton(RecipeItem.Water)}
-            <Typography>{recipe.water.toFixed()} g</Typography>
             <Slider
                 value={recipe.water}
                 disabled={locks.water}
@@ -82,21 +79,19 @@ const RecipeEditor: React.SFC<RecipeEditorProps> = ({ recipe, onRecipeChanged })
                 max={1000}
                 step={10}
                 onChange={(_, value) => updateRecipe(RecipeItem.Water, value as number)}
-                valueLabelDisplay="auto"
-                valueLabelFormat={value => value.toFixed()}
+                marks={[{ value: recipe.water, label: recipe.water.toFixed() + ' ml' }]}
             />
             {/* Ratio */}
             <Typography variant="button">Ratio</Typography>
             {lockerButton(RecipeItem.Ratio)}
-            <Typography>1:{recipe.ratio.toFixed(1)}</Typography>
             <Slider
                 value={recipe.ratio}
                 disabled={locks.ratio}
                 min={1}
                 max={100}
+                step={0.1}
                 onChange={(_, value) => updateRecipe(RecipeItem.Ratio, value as number)}
-                valueLabelDisplay="auto"
-                valueLabelFormat={value => `1:${value.toFixed()}`}
+                marks={[{ value: recipe.ratio, label: '1:' + recipe.ratio.toFixed(1) }]}
             />
         </React.Fragment>
     );
