@@ -14,10 +14,8 @@ const App = () => {
 
     return (
         <Container maxWidth="sm">
-            <Box my={4}>
-                <Typography variant="h4" component="h1" gutterBottom>
-                    Brewser!
-                </Typography>
+            <Box>
+                <Typography variant="h4">Brewser</Typography>
                 <RecipeEditor recipe={recipe} onRecipeChanged={setRecipe} />
                 <Brewer recipe={recipe} />
             </Box>
