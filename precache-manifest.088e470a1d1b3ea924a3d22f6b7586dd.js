@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "56592dd9d9d812b1692252a6357db86b",
+    "revision": "49bacf9d95c44accc691e639bd13c05c",
     "url": "/brewser/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/brewser/static/js/2.967afb1e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e1af43153bd0a5661ee2",
-    "url": "/brewser/static/js/main.1ed4d59d.chunk.js"
+    "revision": "560c13666eaa0c9e6a1b",
+    "url": "/brewser/static/js/main.0fc760bf.chunk.js"
   },
   {
     "revision": "8b61a1ca336edda60023",
