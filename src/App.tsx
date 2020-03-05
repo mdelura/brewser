@@ -4,7 +4,6 @@ import Box from '@material-ui/core/Box';
 import { Recipe } from './models/Recipe';
 import RecipeEditor from './components/RecipeEditor';
 import Brewer from './components/Brewer';
-import Typography from '@material-ui/core/Typography';
 
 const initialCoffeeAmount = 20;
 const initialWaterAmount = 300;
@@ -15,7 +14,6 @@ const App = () => {
     return (
         <Container maxWidth="sm">
             <Box marginRight={2}>
-                <Typography variant="h4">Brewser</Typography>
                 <RecipeEditor recipe={recipe} onRecipeChanged={setRecipe} />
                 <Brewer recipe={recipe} />
             </Box>
