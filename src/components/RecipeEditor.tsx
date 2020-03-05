@@ -88,10 +88,10 @@ const RecipeEditor: React.SFC<RecipeEditorProps> = ({ recipe, onRecipeChanged })
                 value={recipe.ratio}
                 disabled={locks.ratio}
                 min={1}
-                max={100}
+                max={25}
                 step={0.1}
                 onChange={(_, value) => updateRecipe(RecipeItem.Ratio, value as number)}
-                marks={[{ value: recipe.ratio, label: '1:' + recipe.ratio.toFixed(1) }]}
+                marks={[{ value: recipe.ratio, label: '1:' + recipe.ratio.toFixed(2) }]}
             />
         </React.Fragment>
     );
