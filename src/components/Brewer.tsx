@@ -32,7 +32,7 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
                 const finishTime = stepTime * initialPortions;
 
                 if (time + 1 < finishTime) {
-                    if (time !== 0 && time % stepTime === 0) sound.play();
+                    if ((time + 1) % stepTime === 0) sound.play();
                     return time + 1;
                 } else {
                     sound.play();
@@ -47,6 +47,13 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
             clearInterval(timer as NodeJS.Timeout);
             return undefined;
         });
+    };
+
+    const toggleTimer = () => (!timer ? startTimer() : killTimer());
+
+    const resetTimer = () => {
+        if (timer) killTimer();
+        setTime(0);
     };
 
     const stepIndex = Math.floor(time / stepTime);
@@ -75,9 +82,14 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
                 <Grid item xs={6}>
                     <Typography variant="h4">{moment.unix(time).format('mm:ss')}</Typography>
                 </Grid>
-                <Grid item xs={6}>
-                    <Button variant="contained" color="primary" onClick={() => (!timer ? startTimer() : killTimer())}>
+                <Grid item xs={3}>
+                    <Button variant="contained" color="primary" onClick={toggleTimer}>
                         {!timer ? 'Start' : 'Pause'}
+                    </Button>
+                </Grid>
+                <Grid item xs={3}>
+                    <Button variant="contained" color="primary" onClick={resetTimer}>
+                        Reset
                     </Button>
                 </Grid>
             </Grid>
