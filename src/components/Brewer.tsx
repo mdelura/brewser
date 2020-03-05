@@ -20,11 +20,6 @@ import moment from 'moment';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
-            '& > * > *': {
-                // margin: theme.spacing(1)
-            }
-        },
         cardLeft: {
             marginTop: theme.spacing(1),
             marginRight: theme.spacing(1)
@@ -109,7 +104,7 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
 
     return (
         <React.Fragment>
-            <Typography>Prepare {recipe.coffee.toFixed(1)} g of coffee. Remember to rinse your filter!</Typography>
+            <Typography>Prepare {recipe.coffee.toFixed(1)} g of coffee and rinse your filter.</Typography>
             <Typography>Pour water in {new Set(steps).size} steps by:</Typography>
             {/* TODO: Show label with current step amount */}
             <Slider
@@ -146,7 +141,7 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
                     </Step>
                 ))}
             </Stepper>
-            <Grid container className={classes.container}>
+            <Grid container>
                 <Grid item xs={6}>
                     <Card className={classes.cardLeft}>
                         <CardContent>
