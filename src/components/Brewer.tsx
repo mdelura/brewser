@@ -13,7 +13,8 @@ import {
     LinearProgress,
     Stepper,
     Step,
-    StepLabel
+    StepLabel,
+    Box
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
@@ -22,11 +23,14 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         cardLeft: {
             marginTop: theme.spacing(1),
-            marginRight: theme.spacing(1)
+            paddingBottom: theme.spacing(1),
+            marginRight: theme.spacing(1),
+            height: '94%'
         },
         cardRight: {
             marginTop: theme.spacing(1),
-            maringLeft: theme.spacing(1)
+            maringLeft: theme.spacing(1),
+            height: '94%'
         },
         stepper: {
             marginTop: theme.spacing(1),
@@ -45,14 +49,16 @@ const finishTime = stepTime * initialPortions;
 
 const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
     const [time, setTime] = useState(0);
-    const [steps, setSteps] = useState(Array.from(new Array(initialPortions), (_, i) => (i + 1) / initialPortions));
+    const [steps, setSteps] = useState(
+        Array.from(new Array(initialPortions), (_, i) => (i === 0 ? (recipe.coffee * 2.5) / recipe.water : (i + 1) / initialPortions))
+    );
     const [timer, setTimer] = useState<NodeJS.Timeout>();
     const [finished, setFinished] = useState(false);
 
     const sortedSteps = steps.sort();
     const marks: Mark[] = sortedSteps.map(s => ({
         value: s,
-        label: `${(s * recipe.water).toFixed()} ml`
+        label: `${Math.round((s * recipe.water) / 5) * 5} ml`
     }));
 
     const startTimer = () => {
@@ -106,33 +112,29 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
         <React.Fragment>
             <Typography>Prepare {recipe.coffee.toFixed(1)} g of coffee and rinse your filter.</Typography>
             <Typography>Pour water in {new Set(steps).size} steps by:</Typography>
-            {/* TODO: Show label with current step amount */}
-            <Slider
-                value={steps}
-                onChange={(_, values) => setSteps(values as number[])}
-                aria-labelledby="range-slider"
-                max={1}
-                step={0.001}
-                marks={marks}
-            />
-            {/* TODO: Center button */}
-            <Grid container>
-                <Grid item xs={6}>
-                    <Typography variant="h4">
-                        {moment.unix(time).format('mm:ss')} {finished && 'Done!'}
-                    </Typography>
-                </Grid>
-                <Grid item xs={3}>
-                    <Button variant="contained" color="primary" onClick={toggleTimer}>
-                        {!timer ? 'Start' : 'Pause'}
-                    </Button>
-                </Grid>
-                <Grid item xs={3}>
+            <Box marginX={2}>
+                <Slider
+                    value={steps}
+                    onChange={(_, values) => setSteps(values as number[])}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={(step, index) => ((step - (index ? steps[index - 1] : 0)) * recipe.water).toFixed()}
+                    aria-labelledby="range-slider"
+                    max={1}
+                    step={0.001}
+                    marks={marks}
+                />
+            </Box>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography variant="h4">{!finished ? moment.unix(time).format('mm:ss') : 'Done!'}</Typography>
+                <Button variant="contained" color="primary" onClick={toggleTimer}>
+                    {!timer ? 'Start' : 'Pause'}
+                </Button>
+                <Box display="flex" justifyContent="flex-end">
                     <Button variant="contained" color="primary" onClick={resetTimer}>
                         Reset
                     </Button>
-                </Grid>
-            </Grid>
+                </Box>
+            </Box>
             <LinearProgress className={classes.stepper} variant="determinate" value={(time / finishTime) * 100} color="primary" />
             <Stepper className={classes.stepper} activeStep={stepIndex} alternativeLabel>
                 {marks.map((mark, index) => (
@@ -154,9 +156,15 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
                 <Grid item xs={6}>
                     <Card className={classes.cardRight}>
                         <CardContent>
-                            <Typography variant="h5">Next in: {moment.unix(stepTime - (time % stepTime)).format('mm:ss')}</Typography>
-                            <Typography variant="h5">{!isLastStep ? `Pour: ${nextPortion} ml` : 'Done!'}</Typography>
-                            <Typography variant="h5">{!isLastStep ? `Total: ${marks[stepIndex + 1].label}` : ''}</Typography>
+                            <Typography variant="h5">
+                                {isLastStep ? 'Done' : 'Next'} in: {moment.unix(stepTime - (time % stepTime)).format('mm:ss')}
+                            </Typography>
+                            {!isLastStep && (
+                                <React.Fragment>
+                                    <Typography variant="h5">Pour: {nextPortion} ml</Typography>
+                                    <Typography variant="h5">Total: {marks[stepIndex + 1].label}</Typography>
+                                </React.Fragment>
+                            )}
                         </CardContent>
                     </Card>
                 </Grid>
