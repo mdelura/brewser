@@ -129,11 +129,9 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
                 <Button variant="contained" color="primary" onClick={toggleTimer}>
                     {!timer ? 'Start' : 'Pause'}
                 </Button>
-                <Box display="flex" justifyContent="flex-end">
-                    <Button variant="contained" color="primary" onClick={resetTimer}>
-                        Reset
-                    </Button>
-                </Box>
+                <Button variant="contained" color="primary" onClick={resetTimer}>
+                    Reset
+                </Button>
             </Box>
             <LinearProgress className={classes.stepper} variant="determinate" value={(time / finishTime) * 100} color="primary" />
             <Stepper className={classes.stepper} activeStep={stepIndex} alternativeLabel>
