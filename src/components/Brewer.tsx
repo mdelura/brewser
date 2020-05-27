@@ -56,6 +56,7 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
     const [finished, setFinished] = useState(false);
 
     const sortedSteps = steps.sort();
+    const sortedWaterSteps = sortedSteps.map(s => Math.round((s * recipe.water) / 5) * 5);
     const marks: Mark[] = sortedSteps.map(s => ({
         value: s,
         label: `${Math.round((s * recipe.water) / 5) * 5} ml`
@@ -98,13 +99,11 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
     };
 
     const stepIndex = Math.floor(time / stepTime);
-
-    const currentStep = sortedSteps[stepIndex];
-    const previousStep = stepIndex ? sortedSteps[stepIndex - 1] : 0;
+    
     const isLastStep = stepIndex + 1 === sortedSteps.length;
-    const nextStep = !isLastStep ? sortedSteps[stepIndex + 1] : currentStep;
-    const currentPortion = ((currentStep - previousStep) * recipe.water).toFixed();
-    const nextPortion = ((nextStep - currentStep) * recipe.water).toFixed();
+   
+    const currentPortion = sortedWaterSteps[stepIndex] - (stepIndex === 0 ? 0 : sortedWaterSteps[stepIndex - 1]);
+    const nextPortion    = sortedWaterSteps[stepIndex + 1] - sortedWaterSteps[stepIndex];
 
     const classes = useStyles();
 
