@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/brewser/static/js/main.4705ad74.chunk.js",
-    "main.js.map": "/brewser/static/js/main.4705ad74.chunk.js.map",
-    "runtime-main.js": "/brewser/static/js/runtime-main.f2dbfd8a.js",
-    "runtime-main.js.map": "/brewser/static/js/runtime-main.f2dbfd8a.js.map",
-    "static/js/2.d5a92444.chunk.js": "/brewser/static/js/2.d5a92444.chunk.js",
-    "static/js/2.d5a92444.chunk.js.map": "/brewser/static/js/2.d5a92444.chunk.js.map",
+    "main.js": "/brewser/static/js/main.f13abea6.chunk.js",
+    "main.js.map": "/brewser/static/js/main.f13abea6.chunk.js.map",
+    "runtime-main.js": "/brewser/static/js/runtime-main.da94a8de.js",
+    "runtime-main.js.map": "/brewser/static/js/runtime-main.da94a8de.js.map",
+    "static/js/2.229a3e0d.chunk.js": "/brewser/static/js/2.229a3e0d.chunk.js",
+    "static/js/2.229a3e0d.chunk.js.map": "/brewser/static/js/2.229a3e0d.chunk.js.map",
     "index.html": "/brewser/index.html",
-    "precache-manifest.dac6ba7e2ffaaaae1ce1e380c44310fe.js": "/brewser/precache-manifest.dac6ba7e2ffaaaae1ce1e380c44310fe.js",
+    "precache-manifest.58f1345a7c7665810ca4293705f909f7.js": "/brewser/precache-manifest.58f1345a7c7665810ca4293705f909f7.js",
     "service-worker.js": "/brewser/service-worker.js",
-    "static/js/2.d5a92444.chunk.js.LICENSE.txt": "/brewser/static/js/2.d5a92444.chunk.js.LICENSE.txt"
+    "static/js/2.229a3e0d.chunk.js.LICENSE.txt": "/brewser/static/js/2.229a3e0d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.f2dbfd8a.js",
-    "static/js/2.d5a92444.chunk.js",
-    "static/js/main.4705ad74.chunk.js"
+    "static/js/runtime-main.da94a8de.js",
+    "static/js/2.229a3e0d.chunk.js",
+    "static/js/main.f13abea6.chunk.js"
   ]
 }
