@@ -20,21 +20,18 @@ const RecipeEditor: React.FC<RecipeEditorProps> = ({ recipe, onRecipeChanged }) 
     });
 
     const calculate = {
-        [RecipeItem.Coffee]: () => recipe.water / recipe.ratio,
-        [RecipeItem.Water]: () => recipe.coffee * recipe.ratio,
-        [RecipeItem.Ratio]: () => recipe.water / recipe.coffee
+        [RecipeItem.Coffee]: (r: Recipe) => r.water / r.ratio,
+        [RecipeItem.Water]: (r: Recipe) => r.coffee * r.ratio,
+        [RecipeItem.Ratio]: (r: Recipe) => r.water / r.coffee
     };
 
     const updateRecipe = (item: RecipeItem, value: number) => {
-        const updatedRecipe = { ...recipe };
+        // Apply the changed value first so the unlocked item is derived from up-to-date values.
+        const updatedRecipe = { ...recipe, [item]: value };
         for (const key in updatedRecipe) {
             const keyItem = key as RecipeItem;
-            if (updatedRecipe.hasOwnProperty(key)) {
-                if (key === item) {
-                    updatedRecipe[keyItem] = value;
-                } else if (!locks[keyItem]) {
-                    updatedRecipe[keyItem] = calculate[keyItem]();
-                }
+            if (updatedRecipe.hasOwnProperty(key) && key !== item && !locks[keyItem]) {
+                updatedRecipe[keyItem] = calculate[keyItem](updatedRecipe);
             }
         }
 
