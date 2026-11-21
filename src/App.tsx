@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import { Recipe } from './models/Recipe';
 import RecipeEditor from './components/RecipeEditor';
 import Brewer from './components/Brewer';
@@ -16,7 +16,7 @@ const App = () => {
     const initialRecipe = savedRecipe ? (JSON.parse(savedRecipe) as Recipe) : new Recipe(initialCoffeeAmount, initialWaterAmount);
     const [recipe, setRecipe] = useState(initialRecipe);
 
-    const [saveToLocalStorageDebounced] = useDebouncedCallback((recipe: Recipe) => localStorage.setItem(recipeKey, JSON.stringify(recipe)), 500, {
+    const saveToLocalStorageDebounced = useDebouncedCallback((recipe: Recipe) => localStorage.setItem(recipeKey, JSON.stringify(recipe)), 500, {
         maxWait: 2000,
     });
 

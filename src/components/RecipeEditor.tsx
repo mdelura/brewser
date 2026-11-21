@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
-import LockIcon from '@material-ui/icons/Lock';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import IconButton from '@material-ui/core/IconButton';
+import Typography from '@mui/material/Typography';
+import Slider from '@mui/material/Slider';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import IconButton from '@mui/material/IconButton';
 import { Recipe } from '../models/Recipe';
 import { RecipeItem } from '../models/RecipeItem';
 
@@ -12,7 +12,7 @@ export interface RecipeEditorProps {
     onRecipeChanged: (recipe: Recipe) => void;
 }
 
-const RecipeEditor: React.SFC<RecipeEditorProps> = ({ recipe, onRecipeChanged }) => {
+const RecipeEditor: React.FC<RecipeEditorProps> = ({ recipe, onRecipeChanged }) => {
     const [locks, setLocks] = useState({
         [RecipeItem.Coffee]: false,
         [RecipeItem.Water]: false,

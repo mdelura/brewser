@@ -1,61 +1,50 @@
 import React, { useState } from 'react';
 import { Recipe } from '../models/Recipe';
-import {
-    Typography,
-    Slider,
-    Mark,
-    Grid,
-    Card,
-    CardContent,
-    makeStyles,
-    createStyles,
-    Theme,
-    LinearProgress,
-    Stepper,
-    Step,
-    StepLabel,
-    Box
-} from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import moment from 'moment';
+import { Typography, Slider, Grid, Card, CardContent, LinearProgress, Stepper, Step, StepLabel, Box, Button } from '@mui/material';
+import { SxProps, Theme } from '@mui/material/styles';
+import { formatTime } from '../utils/formatTime';
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        cardLeft: {
-            marginTop: theme.spacing(1),
-            paddingBottom: theme.spacing(1),
-            marginRight: theme.spacing(1),
-            height: '94%'
-        },
-        cardRight: {
-            marginTop: theme.spacing(1),
-            maringLeft: theme.spacing(1),
-            height: '94%'
-        },
-        stepper: {
-            marginTop: theme.spacing(1),
-            borderRadius: 4
-        }
-    })
-);
+const styles = {
+    cardLeft: {
+        mt: 1,
+        pb: 1,
+        mr: 1,
+        height: '94%'
+    },
+    cardRight: {
+        mt: 1,
+        ml: 1,
+        height: '94%'
+    },
+    stepper: {
+        mt: 1,
+        borderRadius: '4px'
+    }
+} satisfies Record<string, SxProps<Theme>>;
+
+interface Mark {
+    value: number;
+    label: string;
+}
+
 export interface BrewerProps {
     recipe: Recipe;
 }
 
 const initialPortions = 5;
 const stepTime = 45;
-const sound = new Audio('bell.mp3');
+const sound = new Audio(`${import.meta.env.BASE_URL}bell.mp3`);
 const finishTime = stepTime * initialPortions;
 
-const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
+const Brewer: React.FC<BrewerProps> = ({ recipe }) => {
     const [time, setTime] = useState(0);
     const [steps, setSteps] = useState(
         Array.from(new Array(initialPortions), (_, i) => (i === 0 ? (recipe.coffee * 2.5) / recipe.water : (i + 1) / initialPortions))
     );
-    const [timer, setTimer] = useState<NodeJS.Timeout>();
+    const [timer, setTimer] = useState<ReturnType<typeof setInterval>>();
     const [finished, setFinished] = useState(false);
 
-    const sortedSteps = steps.sort();
+    const sortedSteps = [...steps].sort((a, b) => a - b);
     const sortedWaterSteps = sortedSteps.map(s => Math.round((s * recipe.water) / 5) * 5);
     const marks: Mark[] = sortedSteps.map(s => ({
         value: s,
@@ -85,7 +74,7 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
 
     const killTimer = () => {
         setTimer(timer => {
-            clearInterval(timer as NodeJS.Timeout);
+            clearInterval(timer);
             return undefined;
         });
     };
@@ -105,26 +94,24 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
     const currentPortion = sortedWaterSteps[stepIndex] - (stepIndex === 0 ? 0 : sortedWaterSteps[stepIndex - 1]);
     const nextPortion    = sortedWaterSteps[stepIndex + 1] - sortedWaterSteps[stepIndex];
 
-    const classes = useStyles();
-
     return (
         <React.Fragment>
             <Typography>Prepare {recipe.coffee.toFixed(1)} g of coffee and rinse your filter.</Typography>
             <Typography>Pour water in {new Set(steps).size} steps by:</Typography>
-            <Box marginX={2}>
+            <Box sx={{ mx: 2 }}>
                 <Slider
-                    value={steps}
+                    value={sortedSteps}
                     onChange={(_, values) => setSteps(values as number[])}
                     valueLabelDisplay="auto"
-                    valueLabelFormat={(step, index) => ((step - (index ? steps[index - 1] : 0)) * recipe.water).toFixed()}
+                    valueLabelFormat={(step, index) => ((step - (index ? sortedSteps[index - 1] : 0)) * recipe.water).toFixed()}
                     aria-labelledby="range-slider"
                     max={1}
                     step={0.001}
                     marks={marks}
                 />
             </Box>
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Typography variant="h4">{!finished ? moment.unix(time).format('mm:ss') : 'Done!'}</Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography variant="h4">{!finished ? formatTime(time) : 'Done!'}</Typography>
                 <Button variant="contained" color="primary" onClick={toggleTimer}>
                     {!timer ? 'Start' : 'Pause'}
                 </Button>
@@ -132,8 +119,8 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
                     Reset
                 </Button>
             </Box>
-            <LinearProgress className={classes.stepper} variant="determinate" value={(time / finishTime) * 100} color="primary" />
-            <Stepper className={classes.stepper} activeStep={stepIndex} alternativeLabel>
+            <LinearProgress sx={styles.stepper} variant="determinate" value={(time / finishTime) * 100} color="primary" />
+            <Stepper sx={styles.stepper} activeStep={stepIndex} alternativeLabel>
                 {marks.map((mark, index) => (
                     <Step key={index}>
                         <StepLabel>{mark.label}</StepLabel>
@@ -141,8 +128,8 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
                 ))}
             </Stepper>
             <Grid container>
-                <Grid item xs={6}>
-                    <Card className={classes.cardLeft}>
+                <Grid size={6}>
+                    <Card sx={styles.cardLeft}>
                         <CardContent>
                             <Typography variant="h5">Step: {stepIndex + 1}</Typography>
                             <Typography variant="h5">Pour: {currentPortion} ml</Typography>
@@ -150,11 +137,11 @@ const Brewer: React.SFC<BrewerProps> = ({ recipe }) => {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item xs={6}>
-                    <Card className={classes.cardRight}>
+                <Grid size={6}>
+                    <Card sx={styles.cardRight}>
                         <CardContent>
                             <Typography variant="h5">
-                                {isLastStep ? 'Done' : 'Next'} in: {moment.unix(stepTime - (time % stepTime)).format('mm:ss')}
+                                {isLastStep ? 'Done' : 'Next'} in: {formatTime(stepTime - (time % stepTime))}
                             </Typography>
                             {!isLastStep && (
                                 <React.Fragment>
